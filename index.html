@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Happy 45th Birthday, Papa &mdash; Jay Dhruva</title>
+<meta name="description" content="A son's tribute to his father, Jay Dhruva, on his 45th birthday.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230B0C10'/%3E%3Ctext x='50' y='68' font-family='Georgia,serif' font-size='58' font-weight='700' text-anchor='middle' fill='%23C9A961'%3E45%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<link rel="stylesheet" href="css/main.css">
+<noscript><style>.gate{display:none!important}body{overflow:auto!important;height:auto!important}[data-reveal]{opacity:1!important;transform:none!important}</style></noscript>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- ============ IGNITION INTRO GATE ============ -->
+<div id="gate" class="gate" role="dialog" aria-modal="true" aria-labelledby="gateTitle">
+  <h2 id="gateTitle" class="visually-hidden">Birthday intro &mdash; press start</h2>
+  <div class="gate-flash" id="gateFlash" aria-hidden="true"></div>
+  <canvas id="confettiCanvas" class="confetti-canvas" aria-hidden="true"></canvas>
+
+  <div class="gate-stage" id="gateStageStart">
+    <p class="gate-eyebrow">A surprise 45 years in the making</p>
+    <button type="button" id="ignitionBtn" class="ignition-btn">
+      <span class="ignition-glow" aria-hidden="true"></span>
+      <span class="ignition-ring" aria-hidden="true"></span>
+      <span class="ignition-face">
+        <svg class="ignition-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 3V11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M7 5.5C5.11 6.98 4 9.36 4 12a8 8 0 1 0 16 0c0-2.64-1.11-5.02-3-6.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <span class="ignition-label">PUSH<br>START</span>
+      </span>
+    </button>
+    <p class="gate-hint">(Papa, you of all people know what this button does.)</p>
+  </div>
+
+  <div class="gate-stage gate-stage--reveal" id="gateStageReveal" hidden>
+    <div class="odometer" id="odometer" aria-hidden="true">
+      <span class="odometer-window" id="odoTens"></span>
+      <span class="odometer-window" id="odoUnits"></span>
+    </div>
+    <h1 class="gate-headline" id="gateHeadline">HAPPY 45TH BIRTHDAY, PAPA <span aria-hidden="true">&#10084;&#65039;</span></h1>
+    <p class="gate-sub" id="gateSub">Jay Dhruva &middot; Est. 19 July 1981 &middot; Still the best model ever made</p>
+    <button type="button" class="gate-continue" id="gateContinue">Continue <span aria-hidden="true">&darr;</span></button>
+  </div>
+</div>
+
+<!-- ============ PERSISTENT MARK ============ -->
+<div class="site-mark" aria-hidden="true">JAY DHRUVA &middot; 45</div>
+
+<main id="main">
+
+  <!-- ============ 1. HERO ============ -->
+  <section id="hero" class="hero">
+    <div class="hero-media">
+      <img src="assets/img/full/jay-015.webp" alt="A young Medhansh stands behind his father Jay on the beach, laughing as he covers Jay's eyes with his hands." width="853" height="1280" class="hero-img" fetchpriority="high">
+      <div class="hero-scrim" aria-hidden="true"></div>
+    </div>
+    <div class="hero-content">
+      <h1 class="hero-headline">The Man. The Legend. My Papa.</h1>
+      <p class="hero-sub">45 years of Jay Dhruva. 16 years of being the luckiest son in the world.</p>
+    </div>
+    <a href="#film" class="scroll-hint">
+      <span>Scroll down, Papa. This whole website is for you.</span>
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true"><path d="M12 4V20M12 20L6 14M12 20L18 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </section>
+
+  <!-- ============ 2. THE FILM ============ -->
+  <section id="film" class="film">
+    <div class="film-intro" id="filmIntro">
+      <p class="eyebrow">45 years in motion.</p>
+      <p class="film-lead">Press play, Papa. And no, you can't skip ads &mdash; there aren't any. This one's all you.</p>
+      <button type="button" id="filmPlayBtn" class="play-btn" aria-label="Play the film">
+        <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+      </button>
+      <p class="film-meta">2 min &middot; sound on</p>
+    </div>
+
+    <div class="film-stage" id="filmStage" hidden>
+      <div class="film-frames" id="filmFrames"></div>
+      <div class="film-vignette" aria-hidden="true"></div>
+      <p class="film-caption" id="filmCaption" aria-live="polite"></p>
+      <div class="film-controls">
+        <div class="film-progress" id="filmProgress"><span id="filmProgressBar"></span></div>
+        <button type="button" id="filmSkipBtn" class="film-skip" aria-label="Close the film">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" aria-hidden="true"><path d="M6 6L18 18M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <span>Skip</span>
+        </button>
+      </div>
+    </div>
+    <audio id="filmAudio" preload="none"></audio>
+  </section>
+
+  <!-- ============ 3. THE LETTER ============ -->
+  <section id="letter" class="letter">
+    <div class="letter-wrap">
+      <p class="eyebrow">A letter for your 45th</p>
+      <p class="letter-lead">I say a lot of things, Papa, but I don't say this enough. So I built it a website.</p>
+
+      <div class="letter-body">
+        <p data-reveal>Dear Papa,</p>
+        <p data-reveal>Today you turn 45, and I've been trying to figure out what you give the man who has already given you everything. I can't buy you anything with my own money that you didn't technically pay for, so I made you this instead &mdash; a whole website, because a card was never going to be big enough for what I have to say, and honestly, even the internet might not be.</p>
+        <p data-reveal>Forty-five years ago, on 19 July 1981, the world got you. It took the world 28 more years to give you to me &mdash; 8 December 2009, 9:00 PM &mdash; and from that exact moment you have been the best father in the world every single second. Every minute, every hour, every day, every month, every year. I've done the maths, Papa. That's over 520 million seconds of you showing up for me, and I genuinely cannot remember one single second where you didn't. Not one. Think about that. In sixteen and a half years you have never once been too tired, too busy, or too stressed to be my father &mdash; even on the days I now realise you had every reason to be all three.</p>
+        <p data-reveal>While making this website I went through the photos, and Papa, I had to stop halfway because it hit me all at once. There's a picture of you holding me in the water while I kiss a dolphin, and you're not even looking at the dolphin &mdash; you're smiling at me. There's one where I'm covering your eyes on the beach and we're both laughing at absolutely nothing. There's Mom, you and me holding hands in the waves. There's us on a plane throwing peace signs like two kids, because with you even a flight feels like the destination. There's you handing me a Ferrari key like it was the most normal thing in the world. And there's us now, standing next to cars at midnight, doing the exact same things we did when I was three &mdash; just taller. Sixteen years of photos, Papa, and in every single one of them you're either holding me, watching me, or making sure I'm having the best day of my life. That's not photography. That's a pattern. That's who you are, caught on camera 85 times in a row.</p>
+        <p data-reveal>People throw around words like hero and role model. I don't. When I say you're my hero, I mean that when I imagine the man I want to become, I'm just imagining you. You are my pillar of strength, my motivational speaker, my teacher, my guide, my safe place and my best friend, all in one person &mdash; and somehow that same person also finds time to work harder than anyone I have ever seen in my life. I watch you, Papa. You think nobody notices the long days, the late nights, the phone calls at dinner, the pressure you carry without ever letting it reach your face. I notice everything. I see how you walk out of the house every morning carrying all of our dreams on your shoulders, and how you walk back in every night still smiling, like the weight is nothing, like it's a privilege. I see how you quietly hold up Mom, me, Lucky, Dada, Dadi, Nana, Nani, Ami Fia, Rishit fua, Pierah, Pintu Mama &mdash; our whole family leans on you, and you have never once complained about the weight. Not once, Papa. I've been watching for sixteen years and I have never heard you complain a single time. Everyone else sees the holidays, the opportunities, the beautiful life you've built for all of us. I see the invisible part. I see the effort behind every bit of it, and I want you to know, today, in writing, on your own website: none of it &mdash; none of it &mdash; goes unnoticed.</p>
+        <p data-reveal>Everything I have, you built. The school I go to &mdash; you put me there. The holidays I remember &mdash; you made them happen. The dreams I'm allowed to have &mdash; you paid for the right to dream them. The confidence I walk around with, like a boy who knows that whatever happens, wherever he falls, his father is standing behind him &mdash; that confidence is the most expensive thing you have ever given me, and you gave it to me for free, every single day, just by being you. Papa, do you understand that I have never once in my life felt afraid of the future? Not because I'm brave. Because I have you.</p>
+        <p data-reveal>And you've never made any of it feel like a transaction. That's the part that gets me. You give and give and give, and you act like WE'RE doing YOU the favour by taking it. You work like a man with everything to prove and love us like a man with nothing else to do. I don't know how you do both. I've been studying you my whole life and I still don't know how you do both.</p>
+        <p data-reveal>And Papa, I have to say it, because it's your birthday and the whole internet deserves to know: you are the greatest pre-owned car salesman on this planet. I've said it before and I'll say it forever &mdash; you could sell a car to a man who walked in looking for a bicycle, and that man would drive home convinced it was his idea. But that's not really the talent, is it? Anyone can sell metal. You sell trust. You remember people's names, their kids' names, what they bought five years ago and what their budget really is even when they're too shy to say it. People drive out of your showroom happier than they came in, and they come BACK, Papa &mdash; and they send their brothers and their friends and their neighbours, because everybody who meets you figures out in five minutes what I've known my whole life: this is a man you can trust with anything. That's not salesmanship. That's just who you are, with a price tag on it.</p>
+        <p data-reveal>Which is why the car jokes write themselves. If fatherhood were a car, you'd be a one-owner, accident-free, top-spec, fully loaded 1981 limited edition with a lifetime warranty and features they don't make anymore &mdash; and unlike every car you've ever sold, you don't depreciate. You appreciate. Forty-five years on the road, not a single breakdown, service record spotless, and your value only goes up. Trust me, I've checked the market, Papa. I've done a full inspection. There's nothing else like you on this planet, there never was, and there never will be. And before you even ask &mdash; no, we are not accepting any exchange offers. You're staying in this family's garage forever.</p>
+        <p data-reveal>So here's my promise, on your 45th, and I want it in writing so you can hold me to it: I am going to work as hard as you have worked. I'm going to keep learning, keep improving, keep pushing, keep going on the days I want to give up &mdash; because on those days I think of you, and I remind myself that if Papa can carry everything he carries and still show up every single morning with a smile, then I have no excuse. None. Everything good in me &mdash; the ambition, the discipline, the way I treat people, the fact that I even know what hard work looks like &mdash; all of it came from watching you. One day I want you to look at me and feel even a fraction of the pride I feel when I tell people, &ldquo;That's my father.&rdquo; That's the goal, Papa. That's the whole goal. Everything else is just details.</p>
+        <p data-reveal>And here's my wish, and I mean it more than any wish I will ever make on my own birthday: I hope 45 is the year life starts paying you back. You have spent decades making everyone else's dreams come true &mdash; mine, Mom's, the whole family's, even your customers'. Every dream of your own that you've parked so ours could keep running &mdash; I hope this is the year you get to take them out of the garage and drive every single one of them. And I hope you know that whatever I achieve in my life, wherever I end up, a part of every single win will always be yours, because you bought me the ticket to the race.</p>
+        <p data-reveal>If I could stand in a room with every father in the world &mdash; every country, every city, every language, all of them &mdash; and I had to pick one, a million times in a row, I would walk past all of them and pick you, every single time, without even slowing down. It wouldn't even be a choice. It would just be me coming home.</p>
+        <p data-reveal>Happy 45th birthday, Papa. Thank you for every lesson, every sacrifice, every hug, every piece of advice, every opportunity, every laugh, every memory, every single moment. I love you today, I loved you yesterday, I'll love you tomorrow, and I will love you for the rest of my life &mdash; and knowing you, you'll still find a way to love me more. It's the only competition I've ever lost on purpose.</p>
+        <p class="letter-sign" data-reveal>Your proud son,<br><strong>Medhansh</strong> &#10084;&#65039;</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 4. WHO HE IS ============ -->
+  <section id="roles" class="roles">
+    <p class="eyebrow">Ask me who Jay Dhruva is. Go on, ask.</p>
+    <ul class="roles-wall" id="rolesWall">
+      <li data-reveal>My hero</li>
+      <li data-reveal>My superhero</li>
+      <li data-reveal>My inspiration</li>
+      <li data-reveal>My role model</li>
+      <li data-reveal>My pillar of strength</li>
+      <li data-reveal>My best friend</li>
+      <li data-reveal>My motivational speaker</li>
+      <li data-reveal>My teacher</li>
+      <li data-reveal>My guide</li>
+      <li data-reveal>My safe place</li>
+      <li data-reveal>My biggest supporter</li>
+    </ul>
+    <p class="roles-closing">Most people get one of these in a lifetime. I got all eleven in one man.</p>
+  </section>
+
+  <!-- ============ 5. THE SPEC SHEET ============ -->
+  <section id="spec" class="spec">
+    <div class="spec-card" data-reveal>
+      <div class="spec-media">
+        <img src="assets/img/full/jay-060.webp" alt="Medhansh holding up a red Ferrari-branded key fob, cheek to cheek with Jay, both smiling." width="982" height="1600" loading="lazy">
+      </div>
+      <div class="spec-panel">
+        <p class="spec-plate">JAY DHRUVA &mdash; 1981 &middot; LIMITED EDITION &middot; ONE OF ONE</p>
+        <p class="spec-sub">Inspected by his son. Certified the best in class.</p>
+        <table class="spec-table">
+          <tbody>
+            <tr><th scope="row">Model year</th><td>1981 &mdash; a vintage year, clearly</td></tr>
+            <tr><th scope="row">Ownership</th><td>One family. Fiercely loved. Never letting him go.</td></tr>
+            <tr><th scope="row">Condition</th><td>Accident-free. Carries the entire family, never breaks down.</td></tr>
+            <tr><th scope="row">Mileage</th><td>45 years and somehow still runs better every year</td></tr>
+            <tr><th scope="row">Depreciation</th><td>None on record. Only appreciation.</td></tr>
+            <tr><th scope="row">Features</th><td>Fully loaded: wisdom, patience, unconditional love, dad jokes</td></tr>
+            <tr><th scope="row">Warranty</th><td>Lifetime. Unconditional. No fine print.</td></tr>
+            <tr><th scope="row">Market value</th><td class="spec-stamp">Priceless. Not for sale. No exchange offers accepted.</td></tr>
+          </tbody>
+        </table>
+        <p class="spec-footer">We ran the inspection twice. He's perfect. &mdash; M. Dhruva, Chief Inspector (son)</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 6. THE SALESMAN ============ -->
+  <section id="salesman" class="salesman">
+    <div class="salesman-media" data-reveal>
+      <img src="assets/img/full/jay-085.webp" alt="Jay and teenage Medhansh beside a silver widebody Nissan GT-R at a night car meet, orange highway lights behind them." width="960" height="1280" loading="lazy">
+    </div>
+    <div class="salesman-content" data-reveal>
+      <div class="ca-badge">
+        <p class="ca-wordmark"><span class="ca-classic">CLASSIC</span><span class="ca-auto">AUTO</span></p>
+        <span class="ca-rule" aria-hidden="true"></span>
+        <p class="ca-tagline">Pre-Owned Cars &middot; Malad West, Mumbai</p>
+      </div>
+      <h2>The best in the business</h2>
+      <p>Everyone in the family knows it, every customer who's ever shaken his hand knows it, and now the internet knows it too: my Papa is the greatest pre-owned car salesman there is. He doesn't just know cars &mdash; though he knows cars like other people know their own family &mdash; he knows <em>people</em>. He makes them comfortable. He tells them the truth. He builds the kind of trust you can't put on a price sticker. I'm convinced he could sell a car to someone who came in looking for a bicycle, and the best part is, that person would leave <em>happy about it</em>.</p>
+      <p>Watching him work taught me more about honesty, effort and respect than any classroom ever has.</p>
+    </div>
+  </section>
+
+  <!-- ============ 7. THE FAMILY WALL ============ -->
+  <section id="family" class="family">
+    <p class="eyebrow">He does it all for us</p>
+    <p class="family-lead">Everything Papa builds, he builds for the people he loves. And that list is long.</p>
+    <ul class="family-wall" id="familyWall">
+      <li data-reveal>Mom</li>
+      <li data-reveal>Medhansh</li>
+      <li data-reveal>Lucky</li>
+      <li data-reveal>Dada</li>
+      <li data-reveal>Dadi</li>
+      <li data-reveal>Nana</li>
+      <li data-reveal>Nani</li>
+      <li data-reveal>Ami Fia</li>
+      <li data-reveal>Rishit fua</li>
+      <li data-reveal>Pierah</li>
+      <li data-reveal>Pintu Mama</li>
+    </ul>
+    <p class="family-closing">Everyone loves him. Everyone respects him. Everyone counts on him. He's the one who keeps this family together &mdash; and today, this whole family celebrates him.</p>
+  </section>
+
+  <!-- ============ 8. GALLERY ============ -->
+  <section id="gallery" class="gallery">
+    <p class="eyebrow">The scrapbook</p>
+    <h2>45 years of being impossible not to photograph.</h2>
+    <div class="gallery-grid" id="galleryGrid"></div>
+  </section>
+
+  <!-- ============ 9. FINALE ============ -->
+  <section id="finale" class="finale">
+    <canvas id="finaleConfetti" class="confetti-canvas" aria-hidden="true"></canvas>
+    <div class="finale-stage" id="finaleStage">
+      <p class="finale-prompt" id="finalePrompt">Make a wish, Papa.</p>
+      <div class="cake" id="cake" aria-hidden="true">
+        <div class="cake-candles" id="cakeCandles"></div>
+        <div class="cake-tier cake-tier--top"></div>
+        <div class="cake-tier cake-tier--bottom"></div>
+      </div>
+      <button type="button" id="blowBtn" class="blow-btn">Blow out the candles</button>
+    </div>
+    <div class="finale-message" id="finaleMessage" hidden>
+      <p>Whatever you wished for &mdash; I hope you get that, and more.</p>
+      <p>Because you've spent 45 years making everyone else's wishes come true.</p>
+      <h2>HAPPY 45TH BIRTHDAY, PAPA. I LOVE YOU. &#10084;&#65039;</h2>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <p>Built with all my heart by Medhansh &middot; 19 July 2026</p>
+    <p class="footer-joke">No cars were sold in the making of this website. (Papa could have sold three by now.)</p>
+    <p class="footer-attribution">&ldquo;Warm Memories &ndash; Emotional Inspiring Piano&rdquo; by Keys of Moon &middot; <a href="https://soundcloud.com/keysofmoon">soundcloud.com/keysofmoon</a> &middot; licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> &middot; promoted by freemusicbg.com and chosic.com</p>
+  </footer>
+
+</main>
+
+<!-- ============ LIGHTBOX ============ -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
+  <button type="button" class="lightbox-close" id="lightboxClose" aria-label="Close photo viewer">
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" aria-hidden="true"><path d="M6 6L18 18M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+  </button>
+  <button type="button" class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous photo">
+    <svg viewBox="0 0 24 24" width="26" height="26" fill="none" aria-hidden="true"><path d="M15 4L7 12L15 20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <button type="button" class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Next photo">
+    <svg viewBox="0 0 24 24" width="26" height="26" fill="none" aria-hidden="true"><path d="M9 4L17 12L9 20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <div class="lightbox-frame">
+    <img src="" alt="" id="lightboxImg">
+  </div>
+  <p class="lightbox-count" id="lightboxCount"></p>
+</div>
+
+<script src="js/confetti.js" defer></script>
+<script src="js/intro.js" defer></script>
+<script src="js/main.js" defer></script>
+<script src="js/film.js" defer></script>
+<script src="js/gallery.js" defer></script>
+<script src="js/finale.js" defer></script>
+</body>
+</html>
