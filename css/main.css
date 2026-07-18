@@ -161,6 +161,30 @@ section {
 .no-js [data-reveal] { opacity: 1; transform: none; }
 
 /* ---------------------------------------------------------------------- */
+/* Blur-fill media frame — the whole photo is always visible (object-fit: */
+/* contain on the sharp layer); a blurred, scaled-up cover copy of the    */
+/* SAME image fills the letterboxed edges instead of a hard crop.         */
+/* ---------------------------------------------------------------------- */
+.blurfill { position: relative; overflow: hidden; }
+.blurfill__bg,
+.blurfill__fg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.blurfill__bg {
+  object-fit: cover;
+  filter: blur(34px) saturate(1.15) brightness(0.55);
+  transform: scale(1.18);
+  z-index: 0;
+}
+.blurfill__fg {
+  object-fit: contain;
+  z-index: 1;
+}
+
+/* ---------------------------------------------------------------------- */
 /* Site mark (small persistent corner label)                              */
 /* ---------------------------------------------------------------------- */
 .site-mark {
@@ -434,12 +458,7 @@ body.gate-open { overflow: hidden; height: 100dvh; }
   position: absolute;
   inset: 0;
 }
-.hero-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 50% 22%;
-}
+.hero-media .blurfill__bg { object-position: 50% 22%; }
 .hero-scrim {
   position: absolute;
   inset: 0;
@@ -527,6 +546,19 @@ body.gate-open { overflow: hidden; height: 100dvh; }
 .play-btn:hover { color: var(--champagne-light); box-shadow: 0 0 0 1px var(--champagne), 0 12px 34px rgba(0,0,0,0.5); }
 .play-btn:active { transform: scale(0.94); }
 .film-meta { color: var(--stone); font-size: var(--fs-small); }
+.film-more-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  margin-top: var(--space-2xs);
+  color: var(--champagne);
+  font-size: var(--fs-small);
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  min-height: 44px;
+  padding: 0.4em 0;
+}
+.film-more-link:hover { color: var(--champagne-light); text-decoration-line: underline; }
 
 .film-stage {
   position: fixed;
@@ -545,24 +577,38 @@ body.gate-open { overflow: hidden; height: 100dvh; }
   transition: opacity 1100ms ease-in-out;
 }
 .film-frame.is-active { opacity: 1; z-index: 1; }
-.film-frame img {
+/* Blurred backdrop carries the Ken Burns zoom/pan; the sharp foreground   */
+/* layer stays static and object-fit: contain, so faces are never cropped. */
+.film-frame__blur {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transform: scale(1);
-  animation: kenburns 6.5s ease-out forwards;
+  filter: blur(38px) saturate(1.1) brightness(0.5);
+  transform: scale(1.2);
+  z-index: 0;
+  animation: kenburnsBlur 6.5s ease-out forwards;
 }
-.film-frame.kb-alt img { animation-name: kenburnsAlt; }
-@keyframes kenburns {
-  from { transform: scale(1) translate(0,0); }
-  to { transform: scale(1.13) translate(-1.5%, -1%); }
+.film-frame.kb-alt .film-frame__blur { animation-name: kenburnsBlurAlt; }
+.film-frame__fg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  z-index: 1;
 }
-@keyframes kenburnsAlt {
-  from { transform: scale(1.13) translate(1.5%, 1%); }
-  to { transform: scale(1) translate(0,0); }
+@keyframes kenburnsBlur {
+  from { transform: scale(1.2) translate(0,0); }
+  to { transform: scale(1.34) translate(-1.5%, -1%); }
+}
+@keyframes kenburnsBlurAlt {
+  from { transform: scale(1.34) translate(1.5%, 1%); }
+  to { transform: scale(1.2) translate(0,0); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .film-frame img { animation: none; }
+  .film-frame__blur { animation: none; transform: scale(1.2); }
 }
 .film-vignette {
   position: absolute;
@@ -661,6 +707,17 @@ body.gate-open { overflow: hidden; height: 100dvh; }
   font-weight: 700;
   color: var(--champagne);
 }
+.letter-scrawl {
+  margin-top: 0.15em;
+  font-family: var(--font-reading);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.5rem, 1.2vw + 1.25rem, 2.1rem);
+  color: var(--champagne-light);
+  letter-spacing: 0.02em;
+  transform: rotate(-1.5deg);
+  transform-origin: left center;
+}
 
 /* =========================================================================
    4. WHO HE IS
@@ -715,8 +772,8 @@ body.gate-open { overflow: hidden; height: 100dvh; }
   grid-template-columns: 0.85fr 1.15fr;
   box-shadow: var(--shadow-deep);
 }
-.spec-media { position: relative; min-height: 320px; }
-.spec-media img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; }
+.spec-media { position: relative; min-height: 320px; overflow: hidden; }
+.spec-media .blurfill__bg { object-position: 50% 20%; }
 .spec-panel { padding: var(--space-lg); }
 .spec-plate {
   font-family: var(--font-mono);
@@ -791,8 +848,8 @@ body.gate-open { overflow: hidden; height: 100dvh; }
   gap: var(--space-xl);
   align-items: center;
 }
-.salesman-media { border-radius: 14px; overflow: hidden; box-shadow: var(--shadow-deep); }
-.salesman-media img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; aspect-ratio: 3/4; }
+.salesman-media { position: relative; border-radius: 14px; overflow: hidden; box-shadow: var(--shadow-deep); aspect-ratio: 3/4; }
+.salesman-media .blurfill__bg { object-position: 50% 30%; }
 .ca-badge {
   display: flex;
   flex-direction: column;
@@ -1043,6 +1100,59 @@ body.gate-open { overflow: hidden; height: 100dvh; }
 }
 
 /* =========================================================================
+   10. US THREE — closing beat
+   ========================================================================= */
+.us-three {
+  position: relative;
+  min-height: 100dvh;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+.us-three-media { position: absolute; inset: 0; }
+.us-three-media .blurfill__bg { filter: blur(40px) saturate(1.15) brightness(0.6); }
+.us-three-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(11,12,16,0.4) 0%, rgba(11,12,16,0.15) 35%, rgba(11,12,16,0.35) 65%, rgba(11,12,16,0.85) 100%);
+}
+.us-three-text {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  max-width: 46ch;
+  padding: 0 var(--space-md);
+}
+.us-three-line {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-h2);
+  color: var(--cream);
+  text-wrap: balance;
+}
+.us-three-line--2 {
+  transition-delay: 350ms;
+  font-family: var(--font-reading);
+  font-style: italic;
+  font-weight: 400;
+  font-size: var(--fs-lede);
+  color: var(--champagne-light);
+}
+.us-three-line--3 {
+  transition-delay: 700ms;
+  font-family: var(--font-reading);
+  font-weight: 400;
+  font-size: var(--fs-lede);
+  color: var(--stone);
+}
+
+/* =========================================================================
    LIGHTBOX
    ========================================================================= */
 .lightbox {
@@ -1112,6 +1222,12 @@ body.gate-open { overflow: hidden; height: 100dvh; }
 }
 .site-footer p { color: var(--stone); font-size: var(--fs-small); }
 .footer-joke { font-style: italic; }
+.footer-films-link a {
+  color: var(--champagne);
+  font-weight: 600;
+  text-decoration: none;
+}
+.footer-films-link a:hover { color: var(--champagne-light); text-decoration-line: underline; }
 .footer-attribution { font-size: 0.72rem; max-width: 60ch; margin: 0.4em auto 0; opacity: 0.75; }
 .footer-attribution a { color: var(--stone); }
 
@@ -1121,4 +1237,5 @@ body.gate-open { overflow: hidden; height: 100dvh; }
 #roles, #family, #gallery, #spec, #salesman, #film, #letter {
   max-width: none;
 }
+#usThree { max-width: none; }
 #gallery > .eyebrow, #gallery > h2 { max-width: var(--container); margin-left: auto; margin-right: auto; }

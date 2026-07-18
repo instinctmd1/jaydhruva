@@ -1,0 +1,93 @@
+/* =========================================================================
+   The Films — index page for the seven edited/full-length cuts.
+   Extends the design tokens in main.css.
+   ========================================================================= */
+
+body.films-page { background: var(--midnight); }
+
+.films-header {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: var(--space-2xl) var(--space-md) var(--space-lg);
+}
+.films-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  color: var(--stone);
+  font-family: var(--font-ui);
+  font-size: var(--fs-small);
+  text-decoration: none;
+  margin-bottom: var(--space-lg);
+  min-height: 44px;
+  padding: 0.3em 0;
+}
+.films-back:hover { color: var(--champagne-light); }
+.films-title {
+  font-size: var(--fs-display);
+  font-weight: 900;
+  color: var(--cream);
+  margin: 0 0 var(--space-sm);
+}
+.films-lead {
+  font-family: var(--font-reading);
+  font-size: var(--fs-lede);
+  color: var(--champagne-light);
+  max-width: 60ch;
+  margin: 0;
+}
+
+.films-grid {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--space-md) var(--space-2xl);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-lg);
+}
+
+.film-card {
+  background: var(--charcoal);
+  border: 1px solid var(--border-soft);
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-deep);
+}
+.film-card video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+}
+.film-card-body { padding: var(--space-md); }
+.film-card-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  margin-bottom: 0.4em;
+}
+.film-card h2 {
+  font-size: var(--fs-h3);
+  color: var(--champagne-light);
+}
+.film-card-dur {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--stone);
+  white-space: nowrap;
+}
+.film-card-body p {
+  font-family: var(--font-reading);
+  color: var(--cream);
+  font-size: 1rem;
+}
+.film-card--full { grid-column: 1 / -1; }
+.film-card--full video { aspect-ratio: 16 / 9; }
+@media (min-width: 780px) {
+  .film-card--full { display: grid; grid-template-columns: 1.3fr 1fr; align-items: stretch; }
+  .film-card--full video { height: 100%; aspect-ratio: auto; }
+  .film-card--full .film-card-body { display: flex; flex-direction: column; justify-content: center; }
+}

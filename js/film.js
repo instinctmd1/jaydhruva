@@ -64,10 +64,19 @@
     frameEls = SEQUENCE.map(function (item, i) {
       var div = document.createElement('div');
       div.className = 'film-frame' + (i % 2 === 1 ? ' kb-alt' : '');
-      var img = document.createElement('img');
-      img.alt = '';
-      img.dataset.src = 'assets/img/med/' + item.file;
-      div.appendChild(img);
+      // Blurred backdrop: carries the Ken Burns zoom/pan, may crop freely.
+      var blur = document.createElement('img');
+      blur.alt = '';
+      blur.setAttribute('aria-hidden', 'true');
+      blur.className = 'film-frame__blur';
+      blur.dataset.src = 'assets/img/med/' + item.file;
+      // Sharp foreground: object-fit: contain, static, never crops a face.
+      var fg = document.createElement('img');
+      fg.alt = '';
+      fg.className = 'film-frame__fg';
+      fg.dataset.src = 'assets/img/med/' + item.file;
+      div.appendChild(blur);
+      div.appendChild(fg);
       framesHost.appendChild(div);
       return div;
     });
@@ -75,10 +84,13 @@
 
   function loadFrame(i) {
     if (i < 0 || i >= frameEls.length) return;
-    var img = frameEls[i].querySelector('img');
-    if (img.dataset.src) {
-      img.src = img.dataset.src;
-      delete img.dataset.src;
+    var imgs = frameEls[i].querySelectorAll('img');
+    for (var j = 0; j < imgs.length; j++) {
+      var img = imgs[j];
+      if (img.dataset.src) {
+        img.src = img.dataset.src;
+        delete img.dataset.src;
+      }
     }
   }
 
@@ -87,12 +99,12 @@
     loadFrame(i);
     loadFrame(i + 1);
     frameEls.forEach(function (f, idx) { f.classList.toggle('is-active', idx === i); });
-    // restart Ken Burns animation on the freshly active frame
-    var img = frameEls[i].querySelector('img');
-    img.style.animation = 'none';
+    // restart the Ken Burns animation on the freshly active frame's blurred backdrop
+    var blurImg = frameEls[i].querySelector('.film-frame__blur');
+    blurImg.style.animation = 'none';
     // eslint-disable-next-line no-unused-expressions
-    img.offsetHeight;
-    img.style.animation = '';
+    blurImg.offsetHeight;
+    blurImg.style.animation = '';
 
     var cap = SEQUENCE[i].caption;
     if (cap) {
